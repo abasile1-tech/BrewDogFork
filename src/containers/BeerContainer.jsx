@@ -4,7 +4,6 @@ import { useState } from "react";
 
 const BeerContainer = () => {
   const [beers, setBeers] = useState([]);
-  const [buttonClicked, setButtonClicked] = useState(false);
 
   useEffect(() => {
     fetch("https://api.punkapi.com/v2/beers")
@@ -15,16 +14,12 @@ const BeerContainer = () => {
   return (
     <>
       <h1>BrewDog Beers</h1>
-      <BeersList
-        beers={beers}
-        buttonClicked={buttonClicked}
-        setButtonClicked={setButtonClicked}
-      />
+      <BeersList beers={beers} />
     </>
   );
 };
 
-const BeersList = ({ beers, buttonClicked, setButtonClicked }) => {
+const BeersList = ({ beers }) => {
   const [listIndex, setListIndex] = useState(1);
 
   return beers.map((beer, index) => (
@@ -32,22 +27,15 @@ const BeersList = ({ beers, buttonClicked, setButtonClicked }) => {
       key={index}
       i={index}
       beer={beer}
-      buttonClicked={buttonClicked}
-      setButtonClicked={setButtonClicked}
       listIndex={listIndex}
       setListIndex={setListIndex}
     />
   ));
 };
 
-const Beer = ({
-  i,
-  beer,
-  buttonClicked,
-  setButtonClicked,
-  listIndex,
-  setListIndex,
-}) => {
+const Beer = ({ i, beer, listIndex, setListIndex }) => {
+  const [buttonClicked, setButtonClicked] = useState(false);
+
   return (
     <>
       <ul type="none">
@@ -60,7 +48,6 @@ const Beer = ({
           <br />
           <h2>{beer.name}</h2>
           <h3>{beer.tagline}</h3>
-          {/* <h3>{listIndex}</h3> */}
           <button
             onClick={() => {
               handleButtonClick(
@@ -70,15 +57,6 @@ const Beer = ({
                 setListIndex,
                 i
               );
-              // {
-              //   () =>
-              //     //listIndex === i ? setListIndex(undefined) : setListIndex(i);
-              //     console.log("checking");
-              //   listIndex === i
-              //     ? console.log("yes:", listIndex, i)
-              //     : console.log("no:", listIndex, i);
-              //   console.log("running");
-              // }
             }}
           >
             {buttonClicked == false ? "Show Description:" : "Hide Description:"}
