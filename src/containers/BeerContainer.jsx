@@ -20,26 +20,16 @@ const BeerContainer = () => {
 };
 
 const BeersList = ({ beers }) => {
-  const [listIndex, setListIndex] = useState(1);
-
-  return beers.map((beer, index) => (
-    <Beer
-      key={index}
-      i={index}
-      beer={beer}
-      listIndex={listIndex}
-      setListIndex={setListIndex}
-    />
-  ));
+  return beers.map((beer, index) => <Beer key={index} beer={beer} />);
 };
 
-const Beer = ({ i, beer, listIndex, setListIndex }) => {
+const Beer = ({ beer }) => {
   const [buttonClicked, setButtonClicked] = useState(false);
 
   return (
     <>
       <ul type="none">
-        <li key={i}>
+        <li>
           <img
             src={beer.image_url}
             alt={beer.name}
@@ -50,25 +40,17 @@ const Beer = ({ i, beer, listIndex, setListIndex }) => {
           <h3>{beer.tagline}</h3>
           <button
             onClick={() => {
-              handleButtonClick(
-                buttonClicked,
-                setButtonClicked,
-                listIndex,
-                setListIndex,
-                i
-              );
+              handleButtonClick(buttonClicked, setButtonClicked);
             }}
           >
             {buttonClicked == false ? "Show Description:" : "Hide Description:"}
           </button>
-          {i === listIndex
-            ? buttonClicked == true && (
-                <div>
-                  <p>{beer.description}</p>
-                  <p>{beer.abv} % ABV</p>
-                </div>
-              )
-            : null}
+          {buttonClicked == true && (
+            <div>
+              <p>{beer.description}</p>
+              <p>{beer.abv} % ABV</p>
+            </div>
+          )}
           <hr />
         </li>
       </ul>
@@ -76,19 +58,11 @@ const Beer = ({ i, beer, listIndex, setListIndex }) => {
   );
 };
 
-const handleButtonClick = (
-  buttonClicked,
-  setButtonClicked,
-  listIndex,
-  setListIndex,
-  i
-) => {
+const handleButtonClick = (buttonClicked, setButtonClicked) => {
   if (buttonClicked == true) {
     setButtonClicked(false);
-    setListIndex(undefined);
   } else {
     setButtonClicked(true);
-    setListIndex(i);
   }
 };
 
