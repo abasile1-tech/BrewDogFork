@@ -25,7 +25,7 @@ const BeerContainer = () => {
 };
 
 const BeersList = ({ beers, buttonClicked, setButtonClicked }) => {
-  const [listIndex, setListIndex] = useState(0);
+  const [listIndex, setListIndex] = useState(1);
 
   return beers.map((beer, index) => (
     <Beer
@@ -60,14 +60,25 @@ const Beer = ({
           <br />
           <h2>{beer.name}</h2>
           <h3>{beer.tagline}</h3>
-          <h3>{listIndex}</h3>
+          {/* <h3>{listIndex}</h3> */}
           <button
             onClick={() => {
-              handleButtonClick(buttonClicked, setButtonClicked);
-              {
-                () =>
-                  listIndex === i ? setListIndex(undefined) : setListIndex(i);
-              }
+              handleButtonClick(
+                buttonClicked,
+                setButtonClicked,
+                listIndex,
+                setListIndex,
+                i
+              );
+              // {
+              //   () =>
+              //     //listIndex === i ? setListIndex(undefined) : setListIndex(i);
+              //     console.log("checking");
+              //   listIndex === i
+              //     ? console.log("yes:", listIndex, i)
+              //     : console.log("no:", listIndex, i);
+              //   console.log("running");
+              // }
             }}
           >
             {buttonClicked == false ? "Show Description:" : "Hide Description:"}
@@ -87,11 +98,19 @@ const Beer = ({
   );
 };
 
-const handleButtonClick = (buttonClicked, setButtonClicked) => {
+const handleButtonClick = (
+  buttonClicked,
+  setButtonClicked,
+  listIndex,
+  setListIndex,
+  i
+) => {
   if (buttonClicked == true) {
     setButtonClicked(false);
+    setListIndex(undefined);
   } else {
     setButtonClicked(true);
+    setListIndex(i);
   }
 };
 
