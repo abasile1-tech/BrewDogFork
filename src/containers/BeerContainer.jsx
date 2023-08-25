@@ -23,6 +23,7 @@ const BeerContainer = () => {
     </>
   );
 };
+
 const BeersList = ({ beers, buttonClicked, setButtonClicked }) => {
   return beers.map((beer, index) => (
     <Beer
@@ -32,14 +33,6 @@ const BeersList = ({ beers, buttonClicked, setButtonClicked }) => {
       setButtonClicked={setButtonClicked}
     />
   ));
-};
-
-const handleButtonClick = (buttonClicked, setButtonClicked) => {
-  if (buttonClicked == true) {
-    setButtonClicked(false);
-  } else {
-    setButtonClicked(true);
-  }
 };
 
 const Beer = ({ beer, buttonClicked, setButtonClicked }) => {
@@ -53,27 +46,34 @@ const Beer = ({ beer, buttonClicked, setButtonClicked }) => {
             style={{ width: 100, height: 300 }}
           />
           <br />
-          {beer.name}
-          <hr />
-          {beer.tagline}
+          <h2>{beer.name}</h2>
+          <h3>{beer.tagline}</h3>
           <button
             onClick={() => {
               handleButtonClick(buttonClicked, setButtonClicked);
-              //setButtonClicked(true);
             }}
           >
             {buttonClicked == false ? "Show Description:" : "Hide Description"}
           </button>
           {buttonClicked == true && (
             <div>
-              {beer.description}
-              {beer.abv}
+              <p>{beer.description}</p>
+              <p>{beer.abv} % ABV</p>
             </div>
           )}
+          <hr />
         </li>
       </ul>
     </>
   );
+};
+
+const handleButtonClick = (buttonClicked, setButtonClicked) => {
+  if (buttonClicked == true) {
+    setButtonClicked(false);
+  } else {
+    setButtonClicked(true);
+  }
 };
 
 export default BeerContainer;
