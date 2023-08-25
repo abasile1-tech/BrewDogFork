@@ -25,21 +25,33 @@ const BeerContainer = () => {
 };
 
 const BeersList = ({ beers, buttonClicked, setButtonClicked }) => {
+  const [listIndex, setListIndex] = useState(0);
+
   return beers.map((beer, index) => (
     <Beer
       key={index}
+      i={index}
       beer={beer}
       buttonClicked={buttonClicked}
       setButtonClicked={setButtonClicked}
+      listIndex={listIndex}
+      setListIndex={setListIndex}
     />
   ));
 };
 
-const Beer = ({ beer, buttonClicked, setButtonClicked }) => {
+const Beer = ({
+  i,
+  beer,
+  buttonClicked,
+  setButtonClicked,
+  listIndex,
+  setListIndex,
+}) => {
   return (
     <>
       <ul type="none">
-        <li>
+        <li key={i}>
           <img
             src={beer.image_url}
             alt={beer.name}
@@ -48,19 +60,26 @@ const Beer = ({ beer, buttonClicked, setButtonClicked }) => {
           <br />
           <h2>{beer.name}</h2>
           <h3>{beer.tagline}</h3>
+          <h3>{listIndex}</h3>
           <button
             onClick={() => {
               handleButtonClick(buttonClicked, setButtonClicked);
+              {
+                () =>
+                  listIndex === i ? setListIndex(undefined) : setListIndex(i);
+              }
             }}
           >
-            {buttonClicked == false ? "Show Description:" : "Hide Description"}
+            {buttonClicked == false ? "Show Description:" : "Hide Description:"}
           </button>
-          {buttonClicked == true && (
-            <div>
-              <p>{beer.description}</p>
-              <p>{beer.abv} % ABV</p>
-            </div>
-          )}
+          {i === listIndex
+            ? buttonClicked == true && (
+                <div>
+                  <p>{beer.description}</p>
+                  <p>{beer.abv} % ABV</p>
+                </div>
+              )
+            : null}
           <hr />
         </li>
       </ul>
