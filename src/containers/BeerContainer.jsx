@@ -46,7 +46,7 @@ const Beer = ({ beer }) => {
           <h3>{beer.tagline}</h3>
           <button
             onClick={() => {
-              handleDescriptionButtonClick(
+              handleButtonClick(
                 descriptionButtonClicked,
                 setdescriptionButtonClicked
               );
@@ -69,25 +69,11 @@ const Beer = ({ beer }) => {
   );
 };
 
-const handleDescriptionButtonClick = (
-  descriptionButtonClicked,
-  setdescriptionButtonClicked
-) => {
-  if (descriptionButtonClicked === true) {
-    setdescriptionButtonClicked(false);
+const handleButtonClick = (isButtonClicked, buttonClickedFunction) => {
+  if (isButtonClicked) {
+    buttonClickedFunction(false);
   } else {
-    setdescriptionButtonClicked(true);
-  }
-};
-
-const handleFavoriteButtonClick = (
-  favoriteButtonClicked,
-  setFavoriteButtonClicked
-) => {
-  if (favoriteButtonClicked === true) {
-    setFavoriteButtonClicked(false);
-  } else {
-    setFavoriteButtonClicked(true);
+    buttonClickedFunction(true);
   }
 };
 
