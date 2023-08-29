@@ -1,5 +1,6 @@
 import "./App.css";
 import BeerContainer from "./containers/BeerContainer";
+import FavoritesContainer from "./containers/favoritesContainer";
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<BeerContainer />} />
-          <Route path="favorites" element={<Favorites />} />
+          <Route path="favorites" element={<FavoritesContainer />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
@@ -32,14 +33,6 @@ function Layout() {
 
       <hr />
       <Outlet />
-    </div>
-  );
-}
-
-function Favorites() {
-  return (
-    <div>
-      <h2>Favorites</h2>
     </div>
   );
 }
