@@ -27,7 +27,10 @@ const BeersList = ({ beers }) => {
 };
 
 const Beer = ({ beer }) => {
-  const [buttonClicked, setButtonClicked] = useState(false);
+  const [descriptionButtonClicked, setdescriptionButtonClicked] =
+    useState(false);
+
+  const [favoriteButtonClicked, setFavoriteButtonClicked] = useState(false);
 
   return (
     <>
@@ -43,12 +46,17 @@ const Beer = ({ beer }) => {
           <h3>{beer.tagline}</h3>
           <button
             onClick={() => {
-              handleButtonClick(buttonClicked, setButtonClicked);
+              handleDescriptionButtonClick(
+                descriptionButtonClicked,
+                setdescriptionButtonClicked
+              );
             }}
           >
-            {buttonClicked == false ? "Show Description:" : "Hide Description:"}
+            {descriptionButtonClicked == false
+              ? "Show Description:"
+              : "Hide Description:"}
           </button>
-          {buttonClicked == true && (
+          {descriptionButtonClicked == true && (
             <div>
               <p>{beer.description}</p>
               <p>{beer.abv} % ABV</p>
@@ -61,11 +69,25 @@ const Beer = ({ beer }) => {
   );
 };
 
-const handleButtonClick = (buttonClicked, setButtonClicked) => {
-  if (buttonClicked == true) {
-    setButtonClicked(false);
+const handleDescriptionButtonClick = (
+  descriptionButtonClicked,
+  setdescriptionButtonClicked
+) => {
+  if (descriptionButtonClicked === true) {
+    setdescriptionButtonClicked(false);
   } else {
-    setButtonClicked(true);
+    setdescriptionButtonClicked(true);
+  }
+};
+
+const handleFavoriteButtonClick = (
+  favoriteButtonClicked,
+  setFavoriteButtonClicked
+) => {
+  if (favoriteButtonClicked === true) {
+    setFavoriteButtonClicked(false);
+  } else {
+    setFavoriteButtonClicked(true);
   }
 };
 
