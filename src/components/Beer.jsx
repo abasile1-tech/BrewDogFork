@@ -13,20 +13,13 @@ const Beer = ({
   const [favoriteButtonClicked, setFavoriteButtonClicked] = useState(false);
 
   const handleFavoriteButtonClick = () => {
-    if (favoritesList && (isFavoritesContainer || favoriteButtonClicked)) {
-      console.log(`should be removing ${beer.name} from favorites`);
-      console.log("favoritesList1: ", favoritesList);
-      const newList = favoritesList.filter((item) => item.id != beer.id);
-      console.log("newList: ", newList);
-      console.log("favoritesList2: ", favoritesList);
-      setFavoritesList(newList);
+    if (
+      favoritesList &&
+      (isFavoritesContainer || favoritesList.find((item) => item.id == beer.id))
+    ) {
+      setFavoritesList(favoritesList.filter((item) => item.id != beer.id));
     } else if (favoriteButtonClicked === false) {
-      console.log(`should be adding ${beer.name} to favorites`);
-      console.log("favoritesList before: ", favoritesList);
       setFavoritesList([...favoritesList, beer]);
-      console.log("favoritesList after: ", favoritesList);
-    } else {
-      console.log("who knows");
     }
   };
 
@@ -70,14 +63,9 @@ const Beer = ({
           >
             {isFavoritesContainer
               ? "Remove from Favorites:"
-              : favoriteButtonClicked == false
-              ? "Add to Favorites List:"
-              : "Remove from Favorites:"}
-            {/* {favoritesList.find((item) => {
-              item == beer;
-            })
-              ? "Add to Favorites List:"
-              : "Remove from Favorites:"} */}
+              : favoritesList.find((item) => item.id == beer.id)
+              ? "Remove from Favorites:"
+              : "Add to Favorites List:"}
           </button>
           {descriptionButtonClicked == true && (
             <div>
