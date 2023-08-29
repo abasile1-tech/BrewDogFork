@@ -1,15 +1,18 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const BeerContainer = () => {
   const [beers, setBeers] = useState([]);
 
   useEffect(() => {
-    fetch("https://api.punkapi.com/v2/beers")
-      .then((res) => res.json())
-      .then((data) => setBeers(data));
+    fetchBeers();
   }, []);
+
+  const fetchBeers = async () => {
+    const res = await fetch("https://api.punkapi.com/v2/beers");
+    const data = await res.json();
+    setBeers(data);
+  };
 
   return (
     <>
