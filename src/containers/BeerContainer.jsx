@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
+import BeersList from "../components/BeersList";
 
-const BeerContainer = () => {
+const BeerContainer = ({ favoritesList, setFavoritesList }) => {
   const [beers, setBeers] = useState([]);
 
   useEffect(() => {
@@ -16,57 +17,15 @@ const BeerContainer = () => {
 
   return (
     <>
-      <h1>BrewDog Beers</h1>
-      <BeersList beers={beers} />
+      <h1>All BrewDog Beers</h1>
+      <BeersList
+        beers={beers}
+        favoritesList={favoritesList}
+        setFavoritesList={setFavoritesList}
+        isFavoritesContainer={false}
+      />
     </>
   );
-};
-
-const BeersList = ({ beers }) => {
-  return beers.map((beer, index) => <Beer key={index} beer={beer} />);
-};
-
-const Beer = ({ beer }) => {
-  const [buttonClicked, setButtonClicked] = useState(false);
-
-  return (
-    <>
-      <ul type="none">
-        <li>
-          <img
-            src={beer.image_url}
-            alt={beer.name}
-            style={{ width: 100, height: 300 }}
-          />
-          <br />
-          <h2>{beer.name}</h2>
-          <h3>{beer.tagline}</h3>
-          <button
-            onClick={() => {
-              handleButtonClick(buttonClicked, setButtonClicked);
-            }}
-          >
-            {buttonClicked == false ? "Show Description:" : "Hide Description:"}
-          </button>
-          {buttonClicked == true && (
-            <div>
-              <p>{beer.description}</p>
-              <p>{beer.abv} % ABV</p>
-            </div>
-          )}
-          <hr />
-        </li>
-      </ul>
-    </>
-  );
-};
-
-const handleButtonClick = (buttonClicked, setButtonClicked) => {
-  if (buttonClicked == true) {
-    setButtonClicked(false);
-  } else {
-    setButtonClicked(true);
-  }
 };
 
 export default BeerContainer;
