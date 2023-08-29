@@ -1,15 +1,34 @@
+import { useState } from "react";
 import "./App.css";
 import BeerContainer from "./containers/BeerContainer";
 import FavoritesContainer from "./containers/favoritesContainer";
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 
 function App() {
+  const [favoritesList, setFavoritesList] = useState([]);
+
   return (
     <div>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<BeerContainer />} />
-          <Route path="favorites" element={<FavoritesContainer />} />
+          <Route
+            index
+            element={
+              <BeerContainer
+                favoritesList={favoritesList}
+                setFavoritesList={setFavoritesList}
+              />
+            }
+          />
+          <Route
+            path="favorites"
+            element={
+              <FavoritesContainer
+                favoritesList={favoritesList}
+                setFavoritesList={setFavoritesList}
+              />
+            }
+          />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>

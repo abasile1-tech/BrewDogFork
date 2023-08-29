@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import BeersList from "../components/BeersList";
 
-const BeerContainer = () => {
+const BeerContainer = ({ favoritesList, setFavoritesList }) => {
   const [beers, setBeers] = useState([]);
 
   useEffect(() => {
@@ -17,8 +17,12 @@ const BeerContainer = () => {
 
   return (
     <>
-      <h1>BrewDog Beers</h1>
-      <BeersList beers={beers} />
+      <h1>All BrewDog Beers</h1>
+      <BeersList
+        beers={beers}
+        favoritesList={favoritesList}
+        setFavoritesList={setFavoritesList}
+      />
     </>
   );
 };
