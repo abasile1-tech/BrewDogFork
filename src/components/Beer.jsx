@@ -1,23 +1,32 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 
-const Beer = ({ beer, favoritesList, setFavoritesList }) => {
+const Beer = ({
+  beer,
+  favoritesList,
+  setFavoritesList,
+  isFavoritesContainer,
+}) => {
   const [descriptionButtonClicked, setdescriptionButtonClicked] =
     useState(false);
 
   const [favoriteButtonClicked, setFavoriteButtonClicked] = useState(false);
 
   const handleFavoriteButtonClick = () => {
-    if (favoriteButtonClicked === false) {
+    if (favoritesList && (isFavoritesContainer || favoriteButtonClicked)) {
+      console.log(`should be removing ${beer.name} from favorites`);
+      console.log("favoritesList1: ", favoritesList);
+      const newList = favoritesList.filter((item) => item.id != beer.id);
+      console.log("newList: ", newList);
+      console.log("favoritesList2: ", favoritesList);
+      setFavoritesList(newList);
+    } else if (favoriteButtonClicked === false) {
+      console.log(`should be adding ${beer.name} to favorites`);
+      console.log("favoritesList before: ", favoritesList);
       setFavoritesList([...favoritesList, beer]);
-      console.log("should be adding to favorites");
+      console.log("favoritesList after: ", favoritesList);
     } else {
-      setFavoritesList([
-        ...favoritesList.filter((item) => {
-          item != beer;
-        }),
-      ]);
-      console.log("should be removing from favorites");
+      console.log("who knows");
     }
   };
 
@@ -59,9 +68,16 @@ const Beer = ({ beer, favoritesList, setFavoritesList }) => {
               handleFavoriteButtonClick();
             }}
           >
-            {favoriteButtonClicked == false
+            {isFavoritesContainer
+              ? "Remove from Favorites:"
+              : favoriteButtonClicked == false
               ? "Add to Favorites List:"
               : "Remove from Favorites:"}
+            {/* {favoritesList.find((item) => {
+              item == beer;
+            })
+              ? "Add to Favorites List:"
+              : "Remove from Favorites:"} */}
           </button>
           {descriptionButtonClicked == true && (
             <div>

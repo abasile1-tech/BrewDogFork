@@ -7,7 +7,7 @@ const FavoritesContainer = ({ favoritesList, setFavoritesList }) => {
 
   useEffect(() => {
     setBeers(favoritesList);
-  }, favoritesList);
+  }, [favoritesList]);
 
   // const fetchBeers = async () => {
   //   const res = await fetch("https://api.punkapi.com/v2/beers");
@@ -22,6 +22,7 @@ const FavoritesContainer = ({ favoritesList, setFavoritesList }) => {
         beers={beers}
         favoritesList={favoritesList}
         setFavoritesList={setFavoritesList}
+        isFavoritesContainer={true}
       />
     </>
   );

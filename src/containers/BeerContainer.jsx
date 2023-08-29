@@ -22,6 +22,7 @@ const BeerContainer = ({ favoritesList, setFavoritesList }) => {
         beers={beers}
         favoritesList={favoritesList}
         setFavoritesList={setFavoritesList}
+        isFavoritesContainer={false}
       />
     </>
   );
